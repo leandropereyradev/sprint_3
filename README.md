@@ -14,3 +14,10 @@ Crea una clase que replique el funcionamiento del comando 'Undo'. Esta clase ser
 
     La clase 'Undo' debe implementar imprescindiblemente un patrón Singleton.
 
+### Nivel 2: Abstract Factory
+
+Crea un pequeño gestor de direcciones y números de teléfono internacionales.
+
+    La aplicación debe permitir añadir a la agenda, direcciones y números de teléfono
+    internacionales. Teniendo en cuenta los diferentes formatos de los distintos países,
+    construye la agenda, las direcciones y los teléfonos y realizando  un patrón Abstract Factory.
