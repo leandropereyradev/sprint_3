@@ -1,66 +1,64 @@
 package s3_01.n3_command;
 
+import s3_01.n3_command.command.ActionType;
+import s3_01.n3_command.command.VehicleCommand;
 import s3_01.n3_command.vehicle.*;
-import s3_01.n3_command.command.bike.*;
-import s3_01.n3_command.command.car.*;
-import s3_01.n3_command.command.plane.*;
-import s3_01.n3_command.command.ship.*;
 import s3_01.n3_command.invoker.Invoker;
 
 public class Main {
     public static void main(String[] args) {
         Car car = new Car();
 
-        CarStartCommand carStart = new CarStartCommand(car);
-        CarAccelerateCommand carAccelerate = new CarAccelerateCommand(car);
-        CarBrakeCommand carBrake = new CarBrakeCommand(car);
+        VehicleCommand carStart = new VehicleCommand(car, ActionType.START);
+        VehicleCommand carAccelerate = new VehicleCommand(car, ActionType.ACCELERATE);
+        VehicleCommand carBrake = new VehicleCommand(car, ActionType.BRAKE);
 
         Invoker carInvoker = new Invoker();
-        carInvoker.start(carStart);
-        carInvoker.accelerate(carAccelerate);
-        carInvoker.brake(carBrake);
+        carInvoker.addCommand(carStart);
+        carInvoker.addCommand(carAccelerate);
+        carInvoker.addCommand(carBrake);
 
         System.out.println("Execution of the Car commands.");
         carInvoker.executeCommands();
 
         Bike bike = new Bike();
 
-        BikeStartCommand bikeStart = new BikeStartCommand(bike);
-        BikeAccelerateCommand bikeAccelerate = new BikeAccelerateCommand(bike);
-        BikeBrakeCommand bikeBrake = new BikeBrakeCommand(bike);
+        VehicleCommand bikeStart = new VehicleCommand(bike, ActionType.START);
+        VehicleCommand bikeAccelerate = new VehicleCommand(bike, ActionType.ACCELERATE);
+        VehicleCommand bikeBrake = new VehicleCommand(bike, ActionType.BRAKE);
 
         Invoker bikeInvoker = new Invoker();
-        bikeInvoker.start(bikeStart);
-        bikeInvoker.accelerate(bikeAccelerate);
-        bikeInvoker.brake(bikeBrake);
+        bikeInvoker.addCommand(bikeStart);
+        bikeInvoker.addCommand(bikeAccelerate);
+        bikeInvoker.addCommand(bikeBrake);
 
         System.out.println("\nExecution of the Bike commands.");
         bikeInvoker.executeCommands();
 
         Plane plane = new Plane();
 
-        PlaneStartCommand planeStart = new PlaneStartCommand(plane);
-        PlaneAccelerateCommand planeAccelerate = new PlaneAccelerateCommand(plane);
-        PlaneBrakeCommand planeBrake = new PlaneBrakeCommand(plane);
+        VehicleCommand planeStart = new VehicleCommand(plane, ActionType.START);
+        VehicleCommand planeAccelerate = new VehicleCommand(plane, ActionType.ACCELERATE);
+        VehicleCommand planeBrake = new VehicleCommand(plane, ActionType.BRAKE);
 
         Invoker planeInvoker = new Invoker();
-        planeInvoker.start(planeStart);
-        planeInvoker.accelerate(planeAccelerate);
-        planeInvoker.brake(planeBrake);
+        planeInvoker.addCommand(planeStart);
+        planeInvoker.addCommand(planeAccelerate);
+        planeInvoker.addCommand(planeBrake);
 
         System.out.println("\nExecution of the Plane commands.");
         planeInvoker.executeCommands();
 
         Ship ship = new Ship();
 
-        ShipStartCommand shipStart = new ShipStartCommand(ship);
-        ShipAccelerateCommand shipAccelerate = new ShipAccelerateCommand(ship);
-        ShipBrakeCommand shipBrake = new ShipBrakeCommand(ship);
+        VehicleCommand shipStart = new VehicleCommand(ship, ActionType.START);
+        VehicleCommand shipAccelerate = new VehicleCommand(ship, ActionType.ACCELERATE);
+        VehicleCommand shipBrake = new VehicleCommand(ship, ActionType.BRAKE);
 
         Invoker shipInvoker = new Invoker();
-        shipInvoker.start(shipStart);
-        shipInvoker.accelerate(shipAccelerate);
-        shipInvoker.brake(shipBrake);
+        shipInvoker.addCommand(shipStart);
+        shipInvoker.addCommand(shipAccelerate);
+        shipInvoker.addCommand(shipBrake);
 
         System.out.println("\nExecution of the Ship commands.");
         shipInvoker.executeCommands();

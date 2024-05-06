@@ -6,24 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Invoker {
+    private final List<Command> commands = new ArrayList<>();
 
-    private final List<Command> COMMANDS = new ArrayList<>();
-
-    public void start(Command command) {
-        COMMANDS.add(command);
-    }
-
-    public void brake(Command command) {
-        COMMANDS.add(command);
-    }
-
-    public void accelerate(Command command) {
-        COMMANDS.add(command);
+    public void addCommand(Command command) {
+        commands.add(command);
     }
 
     public void executeCommands() {
-        this.COMMANDS.forEach(Command::execute);
-
-        this.COMMANDS.clear();
+        commands.forEach(Command::execute);
+        commands.clear();
     }
 }
