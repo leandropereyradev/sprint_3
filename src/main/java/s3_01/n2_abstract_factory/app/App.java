@@ -1,9 +1,8 @@
 package s3_01.n2_abstract_factory.app;
 
-import s3_01.n2_abstract_factory.agenda.AgendaManager;
-import s3_01.n2_abstract_factory.contact.contact_factory.ContactFactory;
-import s3_01.n2_abstract_factory.contact.international_contact_factory.InternationalContactFactory;
+import s3_01.n2_abstract_factory.contact.Contact;
 import s3_01.n2_abstract_factory.contact.international_phone.CountryPrefix;
+import s3_01.n2_abstract_factory.menu.MenuOption;
 import s3_01.n2_abstract_factory.service.ContactService;
 
 import java.util.InputMismatchException;
@@ -23,7 +22,7 @@ public class App {
         int option = 0;
 
         do {
-            printMenuOptions();
+            MenuOption.printMainMenuOptions();
 
             try {
                 option = scanner.nextInt();
@@ -55,7 +54,7 @@ public class App {
         int option;
         CountryPrefix prefix = null;
 
-        printChoosePrefixMenu();
+        MenuOption.printChoosePrefixMenu();
 
         while (!isChosen) {
             try {
@@ -71,28 +70,31 @@ public class App {
             }
         }
 
-        System.out.println("Write the telephone number: ");
-        String phoneScanner = scanner.nextLine();
+        int phoneScanner = 0;
+        boolean isNum = false;
+
+        while (!isNum) {
+            System.out.println("Write the telephone number: ");
+
+            try {
+                phoneScanner = scanner.nextInt();
+                scanner.nextLine();
+                isNum = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Must be a number.");
+                scanner.nextLine();
+            }
+        }
 
         System.out.println("Write the address: ");
         String addressScanner = scanner.nextLine();
         this.contactNumber++;
 
-        AgendaManager agenda = new AgendaManager(new InternationalContactFactory());
+        this.CONTACT_SERVICE.addContact(prefix, String.valueOf(phoneScanner), addressScanner);
 
-        agenda.addContact(prefix, phoneScanner, addressScanner);
+        System.out.println("Contact added:");
 
-        System.out.println(agenda);
-    }
-
-    private void printChoosePrefixMenu() {
-        System.out.println();
-
-        for (CountryPrefix country : CountryPrefix.values()) {
-            System.out.println("\t" + country.getID() +
-                    ". " + country.getCountry() +
-                    "(" + country.getPrefix() + ")");
-        }
+        System.out.println(CONTACT_SERVICE.listContacts().get(CONTACT_SERVICE.listContacts().size() - 1));
     }
 
     private CountryPrefix handlePrefixOption(int option) {
@@ -100,13 +102,9 @@ public class App {
 
         switch (option) {
             case 1 -> countryPrefix = CountryPrefix.ARGENTINA;
-
             case 2 -> countryPrefix = CountryPrefix.BRASIL;
-
             case 3 -> countryPrefix = CountryPrefix.ESPANA;
-
             case 4 -> countryPrefix = CountryPrefix.ITALIA;
-
             default -> throw new InputMismatchException();
         }
 
@@ -119,11 +117,16 @@ public class App {
             return;
         }
 
-        System.out.println("\nContact List:");
+        System.out.println("Contact list:");
 
-        for (ContactFactory contact : CONTACT_SERVICE.listContacts()) {
-            System.out.println(contact);
-            System.out.println("\n");
+        for (int i = 0; i < CONTACT_SERVICE.listContacts().size(); i++) {
+
+            String phone = String.valueOf(CONTACT_SERVICE.listContacts().get(i).getPhone());
+            String address = String.valueOf(CONTACT_SERVICE.listContacts().get(i).getAddress());
+
+            System.out.println("\n\tContact #: " + (i + 1));
+            System.out.println("\t\tPhone: " + phone);
+            System.out.println("\t\tAddress: " + address);
         }
     }
 
@@ -133,23 +136,19 @@ public class App {
             return;
         }
 
-        System.out.print("Enter the contactID to delete: ");
+        System.out.print("Enter the Contact # to delete: ");
         int i = scanner.nextInt();
 
         try {
-            CONTACT_SERVICE.deleteContact(i);
+            Contact contactToDelete = CONTACT_SERVICE.listContacts().get(i - 1);
+
+            CONTACT_SERVICE.deleteContact(i - 1);
+
+            System.out.println("Contact deleted:");
+            System.out.println(contactToDelete);
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("ContactID not found.");
+            System.out.println("Contact # not found.");
         }
-    }
-
-    private void printMenuOptions() {
-        System.out.println("\n");
-        System.out.println("1. Add contact");
-        System.out.println("2. List contacts");
-        System.out.println("3. Delete contact");
-        System.out.println("4. Exit");
-        System.out.print("Select an option: ");
     }
 }

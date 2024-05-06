@@ -13,6 +13,6 @@ public class InternationalPhone implements Phone {
 
     @Override
     public String getPhoneNumber() {
-        return CITY_PREFIX.getPrefix() + " " + PHONE_NUMBER;
+        return this.CITY_PREFIX.getPrefix() + " " + this.PHONE_NUMBER;
     }
 }
