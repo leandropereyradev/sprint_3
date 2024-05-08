@@ -3,17 +3,17 @@ package s3_01.n2_abstract_factory.agenda;
 import s3_01.n2_abstract_factory.agenda.address.Address;
 import s3_01.n2_abstract_factory.agenda.phone.Phone;
 import s3_01.n2_abstract_factory.contact.Contact;
-import s3_01.n2_abstract_factory.contact.contact_factory.ContactFactory;
+import s3_01.n2_abstract_factory.contact.contact_abstract.ContactAbstract;
 import s3_01.n2_abstract_factory.contact.international_phone.CountryPrefix;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AgendaManager {
-    private final ContactFactory FACTORY;
+    private final ContactAbstract FACTORY;
     private final List<Contact> CONTACT_LIST = new ArrayList<>();
 
-    public AgendaManager(ContactFactory factory) {
+    public AgendaManager(ContactAbstract factory) {
         this.FACTORY = factory;
     }
 
